@@ -1,0 +1,21 @@
+{{define "profileContent"}}
+<div class="text-center row addBook">
+    <div class="col-lg-2 col-md-2">
+        <p>
+            功能简介
+        </p>
+    </div>
+	{{with .|getBook}}
+    <form class="col-lg-10 col-md-10" method="post" action="/addbook">
+        <input type="text" value="{{.BookId | objectIdToString}}" style="display:none" name="bookId" id="bookId">
+        <div class="form-group bigTextBox">
+            <input type="text" value="{{.Title}}" class="form-control" name="title" id="title" placeholder="书名">
+        </div>
+        <div class="form-group bigTextBox">
+            <textarea class="form-control" id="summary" rows="3" name="summary" placeholder="简介">{{.Summary}}</textarea>
+        </div>
+        <button type="submit" class="btn btn-default">保存</button>
+    </form>
+	{{end}}
+</div>
+{{end}}

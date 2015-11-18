@@ -1,0 +1,33 @@
+{{define "sidebar"}}
+    <nav>
+{{with .|getUser}}
+        <div class="header text-center">
+            <img src="{{.Header}}"/>
+            <h4>
+                {{.Nickname}}
+            </h4>
+        </div>
+		{{end}}
+        <ul id="nav">
+            <li>
+                <a>藏书阁</a>
+                <ul class="subMenu">
+                    <li><a href="/books/add">写新书</a></li>
+                    <li><a href="/books">图书管理</a></li>
+                    <li>
+                        <a href="doc-breadcrumb.html">我的收藏</a>
+                    </li>
+                </ul>
+            </li>
+            <li >
+                <a>设置</a>
+                <ul class="subMenu">
+                    <li><a href="doc-alert.html">我的信息</a></li>
+                    <li>
+                        <a href="doc-breadcrumb.html">更改密码</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+{{end}}

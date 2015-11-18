@@ -1,0 +1,33 @@
+﻿{{define "content"}}
+<style>
+    .item {
+        width: 25%;
+        padding:5px;
+    }
+</style>
+<div class="container">
+    <div id="container">
+        <div class="item swk"><img src="/uploads/4.jpg" /></div>
+        <div class="item"><img src="/uploads/5.jpg" /></div>
+        <div class="item"><img src="/uploads/6.jpg" /></div>
+        <div class="item swk"><img src="/uploads/7.jpg" /></div>
+        <div class="item"><img src="/uploads/8.jpg" /></div>
+        <div class="item"><img src="/uploads/8.jpg" /></div>
+        <div class="item"><img src="/uploads/4.jpg" /></div>
+        <div class="item"><img src="/uploads/6.jpg" /></div>
+        <div class="item"><img src="/uploads/7.jpg" /></div>
+        <div class="item"><img src="/uploads/8.jpg" /></div>
+    </div>
+</div>
+<script type="text/javascript" src="/js/iostope-2.2.0.js"></script>
+<script type="text/javascript">
+    var $container = $('#container');
+    $container.isotope({
+        itemSelector: '.item'
+    });
+
+    function fitter() {
+        $container.isotope({ filter: ".swk" });
+    }
+</script>
+{{end}}
