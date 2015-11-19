@@ -2,21 +2,27 @@
 package main
 
 import (
-	"fmt"
+	
 	"atisafe/tcp"
-	"encoding/json"
+
 )
 
 func main() {
+	
+	/*test:="hello"+" world"
+	fmt.Println(test)
+	
 	s:="df[jhj]dfd[l=10&s=23&c=12&f=110106000001&t=11010601]helloworldsdfdfdf[l=10&s=23&c=12&f=110106000001&t=11010601]helloworld"
 	remain,pks:=tcp.CheckPacket(s)
 	
 	for k,v:=range pks{
-		if b,err:=json.Marshal(v);err==nil{
-			fmt.Println(k,(string(b)))
-		}
+		fmt.Println(k,v.Json())
 	}
 	
-	fmt.Println("remain:",remain)
+	fmt.Println("remain:",remain)*/
+	
+	port:="8080"
+	tcp.StartListen(port)
+	
 }
 

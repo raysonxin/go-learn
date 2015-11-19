@@ -27,12 +27,25 @@ func StartListen(port string){
 }
 
 func handleClient(conn *net.TCPConn){
-	melonClient:=MelonClient{}
-	melonClient.Conn=conn
-	melonClient.Id=conn.RemoteAddr().String()
-	readChan:=make(chan []byte,16)
-
+	melonClient:=MelonClient{
+		Conn:conn,
+		Id:conn.RemoteAddr().String(),
+	}
+	readChan:=make(chan []MyPacket,16)
+	go handlePacket(readChan,conn)
 	melonClient.Run(conn,readChan,clientClosed)
+}
+
+func handlePacket(readChan chan []MyPacket,conn *net.TCPConn){
+	for{
+		select{
+			case pkts:=<-readChan:
+			for _,v :=range pkts{
+				fmt.Println(v.Json())
+			}
+			break
+		}
+	}
 }
 
 func clientClosed(conn *net.TCPConn){
