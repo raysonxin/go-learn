@@ -7,7 +7,9 @@ import(
 type MyPacket struct{
 	Length			int
 	Sequence		int
-	Command			int
+	Command			uint16
+	FuncCode		byte
+	OptCode			byte
 	From			string
 	To				string
 	Data			string

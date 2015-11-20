@@ -35,7 +35,10 @@ func CheckPacket(content string)(remain string,pks []MyPacket){
 		}
 		p.Length,_=strconv.Atoi(v[1])
 		p.Sequence,_=strconv.Atoi(v[2])
-		p.Command,_=strconv.Atoi(v[3])
+		cmd,_:=strconv.Atoi(v[3])
+		p.Command=uint16(cmd)
+		p.FuncCode=byte(p.Command>>8)
+		p.OptCode=byte(p.Command)
 		
 		startIndex:=matchIdxs[k][1]
 		data:=SubString(content,startIndex,p.Length)
