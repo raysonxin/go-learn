@@ -2,8 +2,9 @@
 package main
 
 import (
-	
-	"atisafe/tcp"
+	"fmt"
+	"atisafe/rabbitmq"
+	//"atisafe/tcp"
 )
 
 func main() {
@@ -20,10 +21,22 @@ func main() {
 	
 	fmt.Println("remain:",remain)*/
 	
-
+	cfg:=rabbitmq.MqConfig{
+		FilePath:"./config.ini",
+	}
 	
-	port:="8080"
-	tcp.StartListen(port)
+	configs,_:=cfg.LoadConfig()
+	
+	for _,v := range configs{
+		for key,value:= range v{
+			for ck,cv:=range value{
+				fmt.Println(key,ck,cv)
+			}
+		}
+	}
+	
+	//port:="8080"
+	//tcp.StartListen(port)
 	
 }
 

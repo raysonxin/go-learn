@@ -22,7 +22,6 @@ func (prod *AmqpProducer) StartProducer(uri string)(err error){
 	if err!=nil{
 		return fmt.Errorf("Channel: %s",err)
 	}
-	
 	prod.pubChan=make(chan AmqpMessage,10)
 	
 	for{
@@ -51,5 +50,5 @@ func (prod *AmqpProducer) StartProducer(uri string)(err error){
 }
 
 func (prod *AmqpProducer) Publish(msg AmqpMessage){
-	
+	prod.pubChan<-msg
 }
