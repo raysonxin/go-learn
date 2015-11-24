@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RabbitMQ>
+	<Queues>
+		<queue name="queue1" durable="true" autodelete="false" exclusive="false" wait="false"/>
+		<queue name="queue2" durable="true" autodelete="false" exclusive="false" wait="false"/>
+	</Queues>
+	<Exchanges>
+		<exchange name="exc1" type="topic" durable="true" autodelete="false" internal="false" wait="false"/>
+		<exchange name="exc2" type="topic" durable="true" autodelete="false" internal="false" wait="false"/>
+	</Exchanges>
+	<Binds>
+		<bind queue="queue1" key="abc.*" exchange="exc1" wait="false"/>
+	</Binds>
+</RabbitMQ>
