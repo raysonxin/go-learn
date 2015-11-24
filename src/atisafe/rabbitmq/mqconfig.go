@@ -5,7 +5,6 @@ import(
 	"io"
 	"os"
 	"strings"
-	"encoding/xml"
 )
 
 type MqConfig struct{
@@ -14,7 +13,9 @@ type MqConfig struct{
 }
 
 type AppConfig struct{
-	
+	Exchanges		[]ExchangeInfo
+	Queues			[]QueueInfo
+	Binds			[]BindInfo
 }
 
 type ExchangeInfo struct{
@@ -27,18 +28,18 @@ type ExchangeInfo struct{
 }
 
 type QueueInfo struct{
-	Name			string
-	Durable			bool
-	AutoDelete		bool
-	Exclusive		bool
-	IsNoWait		bool
+	Name			string `xml:"name,attr"`
+	Durable			bool `xml:"durable,attr"`
+	AutoDelete		bool `xml:"autodelete,attr"`
+	Exclusive		bool `xml:"exclusive,attr"`
+	IsNoWait		bool `xml:"wait,attr"`
 }
 
 type BindInfo struct{
-	QueueName		string
-	ExcName			string
-	BindKey			string
-	IsNoWait		bool
+	QueueName		string `xml:"queue,attr"`
+	ExcName			string `xml:"exchange,attr"`
+	BindKey			string `xml:"key,attr"`
+	IsNoWait		bool `xml:"wait,attr"`
 }
 
 

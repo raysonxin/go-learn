@@ -2,9 +2,11 @@
 package main
 
 import (
+	"io/ioutil"
 	"fmt"
 	"atisafe/rabbitmq"
 	//"atisafe/tcp"
+	"encoding/xml"
 )
 
 func main() {
@@ -19,7 +21,7 @@ func main() {
 		fmt.Println(k,v.Json())
 	}
 	
-	fmt.Println("remain:",remain)*/
+	fmt.Println("remain:",remain)
 	
 	cfg:=rabbitmq.MqConfig{
 		FilePath:"./config.ini",
@@ -33,7 +35,15 @@ func main() {
 				fmt.Println(key,ck,cv)
 			}
 		}
+	}*/
+	
+	content,err:=ioutil.ReadFile("config.xml")
+	if err != nil{
+		panic(err.Error())
 	}
+
+	var config AppConfig
+	
 	
 	//port:="8080"
 	//tcp.StartListen(port)
