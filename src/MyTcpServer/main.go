@@ -2,51 +2,49 @@
 package main
 
 import (
-	"io/ioutil"
+	"time"
 	"fmt"
+	"encoding/json"
 	"atisafe/rabbitmq"
-	//"atisafe/tcp"
-	"encoding/xml"
 )
 
 func main() {
-	
-	/*test:="hello"+" world"
-	fmt.Println(test)
-	
-	s:="df[jhj]dfd[l=10&s=23&c=12&f=110106000001&t=11010601]helloworldsdfdfdf[l=10&s=23&c=12&f=110106000001&t=11010601]helloworld"
-	remain,pks:=tcp.CheckPacket(s)
-	
-	for k,v:=range pks{
-		fmt.Println(k,v.Json())
+	mgr:=rabbitmq.MqManager{
+		CfgFile:"config.xml",
 	}
 	
-	fmt.Println("remain:",remain)
+	config,err:=mgr.Initialize()
 	
-	cfg:=rabbitmq.MqConfig{
-		FilePath:"./config.ini",
-	}
-	
-	configs,_:=cfg.LoadConfig()
-	
-	for _,v := range configs{
-		for key,value:= range v{
-			for ck,cv:=range value{
-				fmt.Println(key,ck,cv)
-			}
-		}
-	}*/
-	
-	content,err:=ioutil.ReadFile("config.xml")
 	if err != nil{
 		panic(err.Error())
 	}
-
-	var config AppConfig
 	
+	fmt.Println(config)
 	
-	//port:="8080"
-	//tcp.StartListen(port)
+	go mgr.StartProducer()
 	
+	mgr.Subscribe(config.Consumes,handMessage)
+	
+	for i:=1;i<100;i++{
+		data:=rabbitmq.MsgData{
+			MsgType:		"type",
+			MsgBody:		"helloworld",
+			MsgTime:		time.Now(),
+		}
+		
+		msg:=rabbitmq.AmqpMessage{
+			Exchange:		"exc1",
+			RoutingKey:		"abc.123",
+			Data:			data,
+		}
+		mgr.Publish(msg)
+		
+		time.Sleep(2000)
+	}
 }
 
+func handMessage(msg rabbitmq.MsgData){
+	if b,err:=json.Marshal(msg); err == nil{
+		fmt.Println(string(b))
+	}
+}
