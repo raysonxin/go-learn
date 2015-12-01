@@ -4,6 +4,7 @@ package main
 import (
 	"fmt"
 	"atisafe/redis"
+	rg "github.com/garyburd/redigo/redis"
 )
 
 func main() {
@@ -16,9 +17,12 @@ func main() {
 		ConnPool:p,
 	}
 	
-	h.HashSet("rayson","age","27",0)
+	h.HashSet(0,"rayson","name","abc")
 	
-	h.HashDelete("rayson","name",0)
+	//h.HashDelete(0,"rayson","name")
 	
-	fmt.Println("Hello World!")
+	res,_:=rg.String(h.HashGet(0,"rayson","name"))
+	
+	
+	fmt.Println(res)
 }
